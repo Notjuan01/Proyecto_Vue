@@ -1,5 +1,6 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import HomeView from '../views/HomeView.vue';
+import Comunas from '@/views/Comunas.vue';
 
 const routes = [
   {
@@ -17,9 +18,17 @@ const routes = [
   }
 ]
 
-const router = createRouter({
-  history: createWebHashHistory(),
-  routes
-})
+const router = [
+ {
+    path: '/',
+    name: 'home',
+    component: HomeView
+  },
+  {
+    path: '/comunas',
+    name: 'Comunas',
+    component: Comunas
+  },
+]
 
 export default router
