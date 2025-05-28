@@ -23,12 +23,22 @@
           <td>{{ comuna.comu_codi }}</td>
           <td>{{ comuna.comu_nomb }}</td>
           <td>{{ comuna.muni_nomb }}</td>
+          <td>
+            <button @click="deleteComuna(comuna.comu_codi)"
+                    class="btn btn-danger mx-2">
+              <font-awesome-icon icon="trash" />
+            </button>
+            <button @click="editComuna(comuna.comu_codi)"
+                    class="btn btn-warning mx-2">
+              <font-awesome-icon icon="pencil" />
+            </button>
+          </td>
         </tr>
-        </tbody>
+      </tbody>
     </table>
   </div>
-  </template>
-  <script>
+</template>
+<script>
 import axios from 'axios'
 import Swal from 'sweetalert2'
 
@@ -39,12 +49,36 @@ export default {
       comunas: []
     }
   },
- mounted() {
+  methods: {
+    deleteComuna(codigo) {
+      Swal.fire({
+        title: `Do you want to delete the Comuna with id ${codigo}?`,
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Swal.fire('Saved!', '', 'success')
+          axios.delete(`http://127.0.0.1:8000/api/comunas/${codigo}`)
+            .then(response => {
+              if (response.data.success) {
+                Swal.fire('Deleted!', '', 'success')
+                this.comunas = response.data.comunas
+              }
+            })
+        }
+      })
+    },
+    editComuna(id) {
+      this.$router.push({ name: 'EditarComuna', params: { id: `${id}` } })
+    },
+    newComuna() {
+      this.$router.push({ name: 'NewComuna' })
+    }
+  },
+  mounted() {
     axios
       .get('http://127.0.0.1:8000/api/comunas')
       .then(response => (this.comunas = response.data.comunas))
   }
 }
 </script>
-
-
