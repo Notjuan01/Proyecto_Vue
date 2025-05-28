@@ -4,7 +4,15 @@ import HomeView from '../views/HomeView.vue'
 import Comunas from '@/views/Comunas.vue'
 import EditarComuna from '@/components/Comuna/EditarComuna.vue'
 import NewComuna from '@/components/Comuna/NewComuna.vue'
-
+import Municipios from '@/views/Municipios.vue'
+import EditarMunicipio from '@/components/Municipio/EditarMunicipio.vue'
+import NewMunicipio from '@/components/Municipio/NewMunicipio.vue'
+import Departamentos from '@/views/Departamentos.vue'
+import EditarDepartamento from '@/components/Departamento/EditarDepartamento.vue'
+import NewDepartamento from '@/components/Departamento/NewDepartamento.vue'
+import Paises from '@/views/Paises.vue'
+import EditarPais from '@/components/Pais/EditarPais.vue'
+import NewPais from '@/components/Pais/NewPais.vue'
 
 
 const routes = [
@@ -57,6 +65,35 @@ const routes = [
     path: '/add-departamento/',
     name: 'NewDepartamento',
     component: NewDepartamento
+  },
+  {
+    path: '/paises',
+    name: 'Paises',
+    component: Paises
+  },
+    {
+    path: '/editar-pais/:id',
+    name: 'EditarPais',
+    component: EditarPais
+  },
+  {
+    path: '/add-pais/',
+    name: 'NewPais',
+    component: NewPais
+  },
+  {
+    path: '/about',
+    name: 'about',
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
   }
-
 ]
+
+const router = createRouter({
+  history: createWebHashHistory(),
+  routes
+})
+
+export default router
